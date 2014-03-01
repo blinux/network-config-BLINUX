@@ -72,11 +72,11 @@ case "$*" in
 %files
 %attr(755,root,root) %{_sbindir}/wpa_switch
 %attr(644,root,root) /usr/lib/systemd/system/wpa_switch.service
-%attr(644,root,root) %{sysconfdir}/ifplugd/ifplugd.conf
-%attr(644,root,root) %{sysconfdir}/sysconfig/network/config
-%attr(644,root,root) %{sysconfdir}/sysconfig/network/dhcp
-%attr(644,root,root) %{sysconfdir}/sysconfig/network/ifcfg-enp0s25
-%attr(644,root,root) %{sysconfdir}/sysconfig/network/ifcfg-wlo1
+%attr(644,root,root) %{_sysconfdir}/ifplugd/ifplugd.conf
+%attr(644,root,root) %{_sysconfdir}/sysconfig/network/config
+%attr(644,root,root) %{_sysconfdir}/sysconfig/network/dhcp
+%attr(644,root,root) %{_sysconfdir}/sysconfig/network/ifcfg-enp0s25
+%attr(644,root,root) %{_sysconfdir}/sysconfig/network/ifcfg-wlo1
 
 %changelog
 * Sat Mar 01 2014 Emmanuel Vadot <elbarto@bocal.org> - 1.0-0
