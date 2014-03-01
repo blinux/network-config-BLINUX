@@ -1,0 +1,11 @@
+[Unit]
+Description=WPA Switch
+After=network.target
+
+[Service]
+ExecStart=/usr/sbin/wpa_cli -a /usr/sbin/wpa_switch
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
