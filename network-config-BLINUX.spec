@@ -49,15 +49,15 @@ Network config and scripts for BLINUX
 rm -fr %{buildroot}
 mkdir -p %{buildroot}%{_sbindir}/
 mkdir -p %{buildroot}/usr/lib/systemd/system/
-mkdir -p %{buildroot}%{_sysconfdir}/ifplugd
+mkdir -p %{buildroot}%{_sysconfdir}/ifplugd/
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig/network
 cp wpa_switch %{buildroot}%{_sbindir}
 cp wpa_switch.service %{buildroot}/usr/lib/systemd/system/
-cp ifplugd.conf %{buildroot}%{sysconfdir}/ifplugd/
-cp config %{buildroot}%{sysconfdir}/sysconfig/network/
-cp dhcp %{buildroot}%{sysconfdir}/sysconfig/network/
-cp ifcfg-enp0s25 %{buildroot}%{sysconfdir}/sysconfig/network/
-cp ifcfg-wlo1 %{buildroot}%{sysconfdir}/sysconfig/network/
+cp ifplugd.conf %{buildroot}%{_sysconfdir}/ifplugd/
+cp config %{buildroot}%{_sysconfdir}/sysconfig/network/
+cp dhcp %{buildroot}%{_sysconfdir}/sysconfig/network/
+cp ifcfg-enp0s25 %{buildroot}%{_sysconfdir}/sysconfig/network/
+cp ifcfg-wlo1 %{buildroot}%{_sysconfdir}/sysconfig/network/
 
 %post
 /usr/bin/systemctl enable wpa_switch.service
