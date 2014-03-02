@@ -25,7 +25,7 @@
 
 Name:		network-config-BLINUX
 Version:        1.0
-Release:        0
+Release:        1
 License:        BSD-2-Clause
 Summary:	Network config for BLINUX
 Requires(post):	systemd
@@ -75,6 +75,8 @@ case "$*" in
 %files
 %attr(755,root,root) %{_sbindir}/wpa_switch
 %attr(644,root,root) /usr/lib/systemd/system/wpa_switch.service
+%attr(644,root,root) /usr/lib/systemd/system/wpa_supplicant.service
+%attr(644,root,root) %{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf
 %attr(644,root,root) %{_sysconfdir}/ifplugd/ifplugd.conf
 %attr(644,root,root) %{_sysconfdir}/sysconfig/network/config
 %attr(644,root,root) %{_sysconfdir}/sysconfig/network/dhcp
@@ -82,5 +84,8 @@ case "$*" in
 %attr(644,root,root) %{_sysconfdir}/sysconfig/network/ifcfg-wlo1
 
 %changelog
+* Sun Mar 02 2014 Emmanuel Vadot <elbarto@bocal.org> - 1.0-1
+- Add wpa_supplicant configuration
+
 * Sat Mar 01 2014 Emmanuel Vadot <elbarto@bocal.org> - 1.0-0
 - Package creation
