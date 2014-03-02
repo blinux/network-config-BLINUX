@@ -50,9 +50,12 @@ rm -fr %{buildroot}
 mkdir -p %{buildroot}%{_sbindir}/
 mkdir -p %{buildroot}/usr/lib/systemd/system/
 mkdir -p %{buildroot}%{_sysconfdir}/ifplugd/
+mkdir -p %{buildroot}%{_sysconfdir}/wpa_supplicant
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig/network
 cp wpa_switch %{buildroot}%{_sbindir}
 cp wpa_switch.service %{buildroot}/usr/lib/systemd/system/
+cp wpa_supplicant.service %{buildroot}/usr/lib/systemd/system/
+cp wpa_supplicant.conf %{buildroot}/%{_sysconfdir}/wpa_supplicant/
 cp ifplugd.conf %{buildroot}%{_sysconfdir}/ifplugd/
 cp config %{buildroot}%{_sysconfdir}/sysconfig/network/
 cp dhcp %{buildroot}%{_sysconfdir}/sysconfig/network/
