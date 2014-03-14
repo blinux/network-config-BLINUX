@@ -24,7 +24,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Name:		network-config-BLINUX
-Version:        1.1
+Version:        1.2
 Release:        0
 License:        BSD-2-Clause
 Summary:	Network config for BLINUX
@@ -84,6 +84,9 @@ case "$*" in
 %attr(644,root,root) %{_sysconfdir}/sysconfig/network/ifcfg-wlo1
 
 %changelog
+* Sun Mar 14 2014 Emmanuel Vadot <elbarto@bocal.org> - 1.2-0
+- Bump to 1.2
+
 * Sun Mar 02 2014 Emmanuel Vadot <elbarto@bocal.org> - 1.1-0
 - Bump to 1.1
 
