@@ -247,7 +247,7 @@ DHCLIENT_VENDOR_CLASS_ID=""
 # This may lead to getting a different address/hostname next time an address
 # is requested. But some servers require it.
 #
-DHCLIENT_RELEASE_BEFORE_QUIT="no"
+DHCLIENT_RELEASE_BEFORE_QUIT="yes"
 
 ## Type:	yesno
 ## Default:	no
