@@ -30,9 +30,7 @@ IFNAME=$1
 CMD=$2
 
 if [ "x${CMD}" = "xDISCONNECTED" ]; then
-    /etc/sysconfig/network/scripts/ifplugd-selectif ${IFNAME} down
     dhcpcd --release ${IFNAME}
-    /etc/sysconfig/network/scripts/ifplugd-selectif ${IFNAME} up
 elif [ "x${CMD}" = "xCONNECTED" ]; then
-    dhcpcd -r ${IFNAME}
+    dhcpcd ${IFNAME}
 fi
