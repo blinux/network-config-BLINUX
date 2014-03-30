@@ -73,9 +73,6 @@ case "$*" in
 %attr(644,root,root) /usr/lib/systemd/system/wpa_switch.service
 %attr(644,root,root) /usr/lib/systemd/system/wpa_supplicant.service
 %attr(644,root,root) %{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf
-%attr(644,root,root) %{_sysconfdir}/ifplugd/ifplugd.conf
-%attr(644,root,root) %{_sysconfdir}/sysconfig/network/config
-%attr(644,root,root) %{_sysconfdir}/sysconfig/network/dhcp
 %attr(644,root,root) %{_sysconfdir}/sysconfig/network/ifcfg-enp0s25
 %attr(644,root,root) %{_sysconfdir}/sysconfig/network/ifcfg-wlo1
 
