@@ -24,7 +24,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Name:		network-config-BLINUX
-Version:        1.3
+Version:        1.4
 Release:        0
 License:        BSD-2-Clause
 Summary:	Network config for BLINUX
@@ -57,6 +57,7 @@ cp wpa_supplicant.service %{buildroot}/usr/lib/systemd/system/
 cp wpa_supplicant.conf %{buildroot}/%{_sysconfdir}/wpa_supplicant/
 cp ifcfg-enp0s25 %{buildroot}%{_sysconfdir}/sysconfig/network/
 cp ifcfg-wlo1 %{buildroot}%{_sysconfdir}/sysconfig/network/
+cp ifcfg-eno1 %{buildroot}%{_sysconfdir}/sysconfig/network/
 
 %post
 /usr/bin/systemctl enable wpa_switch.service
@@ -75,8 +76,12 @@ case "$*" in
 %attr(644,root,root) %{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf
 %attr(644,root,root) %{_sysconfdir}/sysconfig/network/ifcfg-enp0s25
 %attr(644,root,root) %{_sysconfdir}/sysconfig/network/ifcfg-wlo1
+%attr(644,root,root) %{_sysconfdir}/sysconfig/network/ifcfg-eno1
 
 %changelog
+* Sun Mar 30 2014 Emmanuel Vadot <elbarto@bocal.org> - 1.4-0
+- Bump to 1.4
+
 * Sun Mar 30 2014 Emmanuel Vadot <elbarto@bocal.org> - 1.3-0
 - Bump to 1.3
 

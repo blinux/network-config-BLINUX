@@ -1,0 +1,2 @@
+BOOTPROTO='dhcp4'
+STARTMODE='auto'
