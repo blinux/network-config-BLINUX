@@ -24,7 +24,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Name:		network-config-BLINUX
-Version:        1.4.3
+Version:        1.4.4
 Release:        0
 License:        BSD-2-Clause
 Summary:	Network config for BLINUX
@@ -71,16 +71,19 @@ case "$*" in
   esac
 
 %files
-%attr(755,root,root) %{_sbindir}/wpa_switch
-%attr(644,root,root) /usr/lib/systemd/system/wpa_switch.service
-%attr(644,root,root) /usr/lib/systemd/system/wpa_supplicant.service
-%attr(644,root,root) %{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf
-%attr(644,root,root) %{_sysconfdir}/sysconfig/network/ifcfg-enp0s25
-%attr(644,root,root) %{_sysconfdir}/sysconfig/network/ifcfg-wlo1
-%attr(644,root,root) %{_sysconfdir}/sysconfig/network/ifcfg-eno1
-%attr(644,root,root) %{_sysconfdir}/sysconfig/network/dhcp
+%{_sbindir}/wpa_switch
+/usr/lib/systemd/system/wpa_switch.service
+/usr/lib/systemd/system/wpa_supplicant.service
+%config(noreplace) %{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf
+%{_sysconfdir}/sysconfig/network/ifcfg-enp0s25
+%{_sysconfdir}/sysconfig/network/ifcfg-wlo1
+%{_sysconfdir}/sysconfig/network/ifcfg-eno1
+%{_sysconfdir}/sysconfig/network/dhcp
 
 %changelog
+* Tue Apr 01 2014 Emmanuel Vadot <elbarto@bocal.org> - 1.4.4-0
+- Bump to 1.4.4
+
 * Tue Apr 01 2014 Emmanuel Vadot <elbarto@bocal.org> - 1.4.3-0
 - Bump to 1.4.3
 
