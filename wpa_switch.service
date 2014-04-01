@@ -1,6 +1,6 @@
 [Unit]
 Description=WPA Switch
-After=network.target
+After=wpa_supplicant.service
 
 [Service]
 ExecStart=/usr/sbin/wpa_cli -a /usr/sbin/wpa_switch
