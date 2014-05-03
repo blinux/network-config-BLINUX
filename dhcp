@@ -135,7 +135,7 @@ DHCLIENT_DEBUG="no"
 # interface's DHCP client never change these settings if you set it to "no".
 # If you leave it empty then ifup-dhcp will decide.
 #
-DHCLIENT_PRIMARY_DEVICE="first"
+DHCLIENT_PRIMARY_DEVICE="no"
 
 ## Type:	yesno
 ## Default:	no
@@ -182,7 +182,7 @@ DHCLIENT_LEASE_TIME=""
 # the lease hasn't expired yet.
 # Set this variable to "no" to disable the fallback to the last lease.
 #
-DHCLIENT_USE_LAST_LEASE=no
+DHCLIENT_USE_LAST_LEASE="no"
 
 ## Type:	integer
 ## Default:	"0"
@@ -196,7 +196,7 @@ DHCLIENT_USE_LAST_LEASE=no
 # Note: In the past, this setting was set to a much higher value (999999)
 # by default, because the dhcpcd < 3.2.3 didn't provided a infinite one.
 #
-DHCLIENT_TIMEOUT="5"
+DHCLIENT_TIMEOUT="0"
 
 ## Type:	string
 ## Default:	AUTO
