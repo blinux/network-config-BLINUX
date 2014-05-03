@@ -24,7 +24,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Name:		network-config-BLINUX
-Version:        1.4.4
+Version:        2.0
 Release:        0
 License:        BSD-2-Clause
 Summary:	Network config for BLINUX
@@ -81,6 +81,9 @@ case "$*" in
 %{_sysconfdir}/sysconfig/network/dhcp
 
 %changelog
+* Sat May 03 2014 Emmanuel Vadot <elbarto@bocal.org> - 2.0-0
+- Bump to 1.4.4
+
 * Tue Apr 01 2014 Emmanuel Vadot <elbarto@bocal.org> - 1.4.4-0
 - Bump to 1.4.4
 
