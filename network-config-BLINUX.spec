@@ -25,7 +25,7 @@
 
 Name:		network-config-BLINUX
 Version:        2.0
-Release:        0
+Release:        1
 License:        BSD-2-Clause
 Summary:	Network config for BLINUX
 Requires(post):	systemd
