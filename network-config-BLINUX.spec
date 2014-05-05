@@ -77,6 +77,7 @@ case "$*" in
 /usr/lib/systemd/system/wpa_switch.service
 /usr/lib/systemd/system/wpa_supplicant.service
 %config(noreplace) %{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf
+%config(noreplace) %{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf.orig
 %{_sysconfdir}/sysconfig/network/ifcfg-enp0s25
 %{_sysconfdir}/sysconfig/network/ifcfg-wlo1
 %{_sysconfdir}/sysconfig/network/ifcfg-eno1
