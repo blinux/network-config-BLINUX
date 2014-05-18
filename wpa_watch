@@ -6,8 +6,10 @@ wpa_reset() {
 }
 
 while [ 1 ]; do
+    # Temporize a bit to wait for wpa_supplicant
+    sleep 5
     /usr/sbin/wpa_cli -a /usr/sbin/wpa_switch
-# If we're here it means that wpa_supplicant failed
+    # If we're here it means that wpa_supplicant failed
     sleep 5
     wpa_reset
 done
