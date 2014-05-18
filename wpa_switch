@@ -30,7 +30,7 @@ IFNAME=$1
 CMD=$2
 
 if [ "x${CMD}" = "xDISCONNECTED" ]; then
-    dhcpcd --release ${IFNAME}
+    ifdown-dhcp ${IFNAME}
 elif [ "x${CMD}" = "xCONNECTED" ]; then
-    dhcpcd ${IFNAME}
+    ifup-dhcp ${IFNAME}
 fi
