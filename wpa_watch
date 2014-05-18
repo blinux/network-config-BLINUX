@@ -1,0 +1,13 @@
+#!/bin/sh
+
+wpa_reset() {
+    cp /etc/wpa_supplicant/wpa_supplicant.conf.orig /etc/wpa_supplicant/wpa_supplicant.conf
+    systemctl restart wpa_supplicant.service
+}
+
+while [ 1 ]; do
+    /usr/sbin/wpa_cli -a /usr/sbin/wpa_switch
+# If we're here it means that wpa_supplicant failed
+    sleep 5
+    wpa_reset
+done

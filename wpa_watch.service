@@ -1,9 +1,9 @@
 [Unit]
-Description=WPA Switch
+Description=WPA Watch
 After=wpa_supplicant.service
 
 [Service]
-ExecStart=/usr/sbin/wpa_cli -a /usr/sbin/wpa_switch
+ExecStart=/usr/sbin/wpa_watch
 KillMode=process
 Restart=always
 

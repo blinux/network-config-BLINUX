@@ -24,7 +24,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Name:		network-config-BLINUX
-Version:        2.0
+Version:        2.1
 Release:        1
 License:        BSD-2-Clause
 Summary:	Network config for BLINUX
@@ -53,7 +53,8 @@ mkdir -p %{buildroot}/usr/lib/systemd/system/
 mkdir -p %{buildroot}%{_sysconfdir}/wpa_supplicant
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig/network
 cp wpa_switch %{buildroot}%{_sbindir}
-cp wpa_switch.service %{buildroot}/usr/lib/systemd/system/
+cp wpa_watch %{buildroot}%{_sbindir}
+cp wpa_watch.service %{buildroot}/usr/lib/systemd/system/
 cp wpa_supplicant.service %{buildroot}/usr/lib/systemd/system/
 cp wpa_supplicant.conf %{buildroot}/%{_sysconfdir}/wpa_supplicant/
 cp wpa_supplicant.conf %{buildroot}/%{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf.orig
@@ -63,18 +64,19 @@ cp ifcfg-eno1 %{buildroot}%{_sysconfdir}/sysconfig/network/
 cp dhcp %{buildroot}%{_sysconfdir}/sysconfig/network/
 
 %post
-/usr/bin/systemctl enable wpa_switch.service
+/usr/bin/systemctl enable wpa_watch.service
 
 %postun
 case "$*" in
   0)  
-  /usr/bin/systemctl disable wpa_switch.service
+  /usr/bin/systemctl disable wpa_watch.service
   ;;
   esac
 
 %files
 %{_sbindir}/wpa_switch
-/usr/lib/systemd/system/wpa_switch.service
+%{_sbindir}/wpa_watch
+/usr/lib/systemd/system/wpa_watch.service
 /usr/lib/systemd/system/wpa_supplicant.service
 %config(noreplace) %{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf
 %config(noreplace) %{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf.orig
@@ -84,6 +86,10 @@ case "$*" in
 %{_sysconfdir}/sysconfig/network/dhcp
 
 %changelog
+* Sun May 18 2014 Emmanuel Vadot <elbarto@bocal.org> - 2.1
+- Add wpa_watch
+- Remove wpa_switch service
+
 * Sat May 03 2014 Emmanuel Vadot <elbarto@bocal.org> - 2.0-1
 - Copy original file of wpa_supplicant in .orig
 - Add wpa_supplicant-gui as Requires
