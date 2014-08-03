@@ -47,12 +47,12 @@ generate_netcfg_files() {
 # wlan device always passed first
     wlan=$1
     shift
-    generate_wlan_netcfg_file > /etc/sysconfig/network/if-${wlan}
+    generate_wlan_netcfg_file > /etc/sysconfig/network/ifcfg-${wlan}
 
     while [ $# -gt 0 ]; do
 	lan=$1
 	shift
-	generate_lan_netcfg_file > /etc/sysconfig/network/if-${lan}
+	generate_lan_netcfg_file > /etc/sysconfig/network/ifcfg-${lan}
     done
 }
 
