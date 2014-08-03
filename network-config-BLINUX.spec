@@ -24,8 +24,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Name:		network-config-BLINUX
-Version:        2.1
-Release:        1
+Version:        2.2
+Release:        0
 License:        BSD-2-Clause
 Summary:	Network config for BLINUX
 Requires(post):	systemd
@@ -54,17 +54,17 @@ mkdir -p %{buildroot}%{_sysconfdir}/wpa_supplicant
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig/network
 cp wpa_switch %{buildroot}%{_sbindir}
 cp wpa_watch %{buildroot}%{_sbindir}
+cp network-config-generate %{buildroot}%{_sbindir}
 cp wpa_watch.service %{buildroot}/usr/lib/systemd/system/
-cp wpa_supplicant.service %{buildroot}/usr/lib/systemd/system/
+cp wpa_supplicant.service %{buildroot}/usr/lib/systemd/system/wpa_supplicant.service.tpl
 cp wpa_supplicant.conf %{buildroot}/%{_sysconfdir}/wpa_supplicant/
 cp wpa_supplicant.conf %{buildroot}/%{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf.orig
-cp ifcfg-enp0s25 %{buildroot}%{_sysconfdir}/sysconfig/network/
-cp ifcfg-wlo1 %{buildroot}%{_sysconfdir}/sysconfig/network/
-cp ifcfg-eno1 %{buildroot}%{_sysconfdir}/sysconfig/network/
 cp dhcp %{buildroot}%{_sysconfdir}/sysconfig/network/
 
 %post
+/usr/sbin/network-config-generate
 /usr/bin/systemctl enable wpa_watch.service
+/usr/bin/systemctl enable wpa_supplicant.service
 
 %postun
 case "$*" in
@@ -76,16 +76,17 @@ case "$*" in
 %files
 %{_sbindir}/wpa_switch
 %{_sbindir}/wpa_watch
+%{_sbindir}/network-config-generate
 /usr/lib/systemd/system/wpa_watch.service
-/usr/lib/systemd/system/wpa_supplicant.service
+%config(noreplace) /usr/lib/systemd/system/wpa_supplicant.service.tpl
 %config(noreplace) %{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf
 %config(noreplace) %{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf.orig
-%{_sysconfdir}/sysconfig/network/ifcfg-enp0s25
-%{_sysconfdir}/sysconfig/network/ifcfg-wlo1
-%{_sysconfdir}/sysconfig/network/ifcfg-eno1
 %{_sysconfdir}/sysconfig/network/dhcp
 
 %changelog
+* Mon Aug 04 2014 Emmanuel Vadot <elbarto@bocal.org> - 2.2
+- Generate config files and service at install
+
 * Sun May 18 2014 Emmanuel Vadot <elbarto@bocal.org> - 2.1
 - Add wpa_watch
 - Remove wpa_switch service

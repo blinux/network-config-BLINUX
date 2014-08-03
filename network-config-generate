@@ -1,0 +1,66 @@
+#!/bin/sh
+
+find_wlan() {
+    wlan=`hwinfo --wlan --short | sed '1d' | awk '{print $1}' | head -n 1`
+
+    echo ${wlan}
+}
+
+find_lans() {
+    exclude=$1
+    shift
+    lans=`hwinfo --netcard --short | grep -v ${exclude} | sed '1d' | awk '{print $1}' | xargs echo | tr ' ' ','`
+
+    echo ${lans}
+}
+
+generate_wpa_supplicant_service() {
+    device=$1
+    sed "s/__DEVICE__/${device}/g" /usr/lib/systemd/system/wpa_supplicant.service.tpl > /usr/lib/systemd/system/wpa_supplicant.service
+}
+
+generate_wlan_netcfg_file() {
+    cat <<EOF
+BOOTPROTO='dhcp4'
+STARTMODE='ifplugd'
+IFPLUGD_PRIORITY=1
+DHCLIENT_SET_DEFAULT_ROUTE='yes'
+DHCLIENT_USE_LAST_LEASE='no'
+DHCLIENT_RELEASE_BEFORE_QUIT='yes'
+DHCLIENT_PRIMARY_DEVICE='no'
+EOF
+}
+
+generate_lan_netcfg_file() {
+    cat <<EOF
+BOOTPROTO='dhcp4'
+STARTMODE='ifplugd'
+IFPLUGD_PRIORITY=2
+DHCLIENT_SET_DEFAULT_ROUTE='yes'
+DHCLIENT_USE_LAST_LEASE='no'
+DHCLIENT_RELEASE_BEFORE_QUIT='yes'
+DHCLIENT_PRIMARY_DEVICE='yes'
+EOF
+}
+
+generate_netcfg_files() {
+# wlan device always passed first
+    wlan=$1
+    shift
+    generate_wlan_netcfg_file > /etc/sysconfig/network/if-${wlan}
+
+    while [ $# -gt 0 ]; do
+	lan=$1
+	shift
+	generate_lan_netcfg_file > /etc/sysconfig/network/if-${lan}
+    done
+}
+
+wlan=`find_wlan`
+lans=`find_lans ${wlan}`
+
+echo "Found wlan device: ${wlan}"
+echo "Found lan device(s): ${lans}"
+
+generate_wpa_supplicant_service ${wlan}
+generate_netcfg_files ${wlan} ${lans}
