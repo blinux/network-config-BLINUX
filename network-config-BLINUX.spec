@@ -24,7 +24,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Name:		network-config-BLINUX
-Version:        2.3
+Version:        2.4
 Release:        0
 License:        BSD-2-Clause
 Summary:	Network config for BLINUX
@@ -84,6 +84,9 @@ case "$*" in
 %{_sysconfdir}/sysconfig/network/dhcp
 
 %changelog
+* Mon Aug 04 2014 Emmanuel Vadot <elbarto@bocal.org> - 2.4
+- Typo in network-config-generate
+
 * Mon Aug 04 2014 Emmanuel Vadot <elbarto@bocal.org> - 2.3
 - Handle case where no wlans is found
 
