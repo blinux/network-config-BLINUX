@@ -7,9 +7,11 @@ find_wlan() {
 }
 
 find_lans() {
-    exclude=$1
-    shift
-    lans=`hwinfo --netcard --short | grep -v ${exclude} | sed '1d' | awk '{print $1}' | xargs echo | tr ' ' ','`
+    if [ -z "$1" ]; then
+	lans=`hwinfo --netcard --short | sed '1d' | awk '{print $1}' | xargs echo`
+    else
+	lans=`hwinfo --netcard --short | grep -v ${exclude} | sed '1d' | awk '{print $1}' | xargs echo`
+    fi
 
     echo ${lans}
 }
@@ -43,24 +45,18 @@ DHCLIENT_PRIMARY_DEVICE='yes'
 EOF
 }
 
-generate_netcfg_files() {
-# wlan device always passed first
-    wlan=$1
-    shift
-    generate_wlan_netcfg_file > /etc/sysconfig/network/ifcfg-${wlan}
-
-    while [ $# -gt 0 ]; do
-	lan=$1
-	shift
-	generate_lan_netcfg_file > /etc/sysconfig/network/ifcfg-${lan}
-    done
-}
-
 wlan=`find_wlan`
 lans=`find_lans ${wlan}`
 
-echo "Found wlan device: ${wlan}"
-echo "Found lan device(s): ${lans}"
+if [ ! -z "${wlan}" ]; then
+    echo "Found wlan device: ${wlan}"
+    generate_wlan_netcfg_file > /etc/sysconfig/network/ifcfg-${wlan}
+    generate_wpa_supplicant_service ${wlan}
+fi
 
-generate_wpa_supplicant_service ${wlan}
-generate_netcfg_files ${wlan} ${lans}
+if [ ! -z "${lans}" ]; then
+    echo "Found lan device(s): ${lans}"
+    for lan in ${lans}; do
+	generate_lan_netcfg_file > /etc/sysconfig/network/ifcfg-${lan}
+    done
+fi
