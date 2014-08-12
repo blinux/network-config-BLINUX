@@ -1,6 +1,6 @@
 [Unit]
 Description=WPA Watch
-After=wpa_supplicant.service
+After=wpa_supp.service
 
 [Service]
 ExecStart=/usr/sbin/wpa_watch

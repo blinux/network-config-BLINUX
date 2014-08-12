@@ -28,7 +28,7 @@
 
 wpa_reset() {
     cp /etc/wpa_supplicant/wpa_supplicant.conf.orig /etc/wpa_supplicant/wpa_supplicant.conf
-    systemctl restart wpa_supplicant.service
+    systemctl restart wpa_supp.service
 }
 
 while [ 1 ]; do

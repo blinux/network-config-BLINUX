@@ -1,5 +1,5 @@
 [Unit]
-Description=WPA Supplicant daemon
+Description=WPA Supplicant daemon BLINUX
 Before=network.target
 
 [Service]

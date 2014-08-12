@@ -24,25 +24,35 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Name:		network-config-BLINUX
-Version:        2.4
+Version:        2.5
 Release:        0
 License:        BSD-2-Clause
 Summary:	Network config for BLINUX
+Group:          System Environment/Base
+
 Requires(post):	systemd
 Requires(preun):	systemd
+BuildRequires:	hwinfo
 BuildArch:      noarch
-Source0:        %{name}-%{version}.tgz
-Vendor:		Bocal
-Url:            http://www.bocal.org
-Group:          System Environment/Base
-Packager:       Emmanuel Vadot <elbarto@bocal.org>
+Source0:        wpa_switch
+Source1:        wpa_watch
+Source2:        network-config-generate
+Source3:        wpa_watch.service
+Source4:        wpa_supplicant.service
+Source5:        wpa_supplicant.conf
+Source6:        dhcp
+
 Requires:	wpa_supplicant-gui
+Requires:	hwinfo
+
+Url:            http://www.blinux.fr
+Packager:       Emmanuel Vadot <elbarto@bocal.org>
+Vendor:		Blinux
 
 %description
 Network config and scripts for BLINUX
 
 %prep
-%setup
 
 %build
 
@@ -52,38 +62,43 @@ mkdir -p %{buildroot}%{_sbindir}/
 mkdir -p %{buildroot}/usr/lib/systemd/system/
 mkdir -p %{buildroot}%{_sysconfdir}/wpa_supplicant
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig/network
-cp wpa_switch %{buildroot}%{_sbindir}
-cp wpa_watch %{buildroot}%{_sbindir}
-cp network-config-generate %{buildroot}%{_sbindir}
-cp wpa_watch.service %{buildroot}/usr/lib/systemd/system/
-cp wpa_supplicant.service %{buildroot}/usr/lib/systemd/system/wpa_supplicant.service.tpl
-cp wpa_supplicant.conf %{buildroot}/%{_sysconfdir}/wpa_supplicant/
-cp wpa_supplicant.conf %{buildroot}/%{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf.orig
-cp dhcp %{buildroot}%{_sysconfdir}/sysconfig/network/
+install -D -m 755 %{SOURCE0} %{buildroot}%{_sbindir}
+install -D -m 755 %{SOURCE1} %{buildroot}%{_sbindir}
+install -D -m 755 %{SOURCE2} %{buildroot}%{_sbindir}
+install -D -m 644 %{SOURCE3} %{buildroot}/usr/lib/systemd/system/
+install -D -m 644 %{SOURCE4} %{buildroot}/usr/lib/systemd/system/wpa_supp.service.tpl
+install -D -m 644 %{SOURCE5} %{buildroot}/%{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf.tpl
+install -D -m 644 %{SOURCE6} %{buildroot}%{_sysconfdir}/sysconfig/network/
 
 %post
 /usr/sbin/network-config-generate
 /usr/bin/systemctl enable wpa_watch.service
-/usr/bin/systemctl enable wpa_supplicant.service
+/usr/bin/systemctl disable wpa_supplicant.service
 
 %postun
 case "$*" in
   0)  
   /usr/bin/systemctl disable wpa_watch.service
+  /usr/bin/systemctl disable wpa_supp.service
+  /usr/bin/systemctl enable wpa_supplicant.service
   ;;
   esac
 
 %files
+%defattr(-,root,root)
+/etc/wpa_supplicant
 %{_sbindir}/wpa_switch
 %{_sbindir}/wpa_watch
 %{_sbindir}/network-config-generate
 /usr/lib/systemd/system/wpa_watch.service
-%config(noreplace) /usr/lib/systemd/system/wpa_supplicant.service.tpl
-%config(noreplace) %{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf
-%config(noreplace) %{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf.orig
-%{_sysconfdir}/sysconfig/network/dhcp
+/usr/lib/systemd/system/wpa_supp.service.tpl
+%config(noreplace) %{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf.tpl
+%config(noreplace) %{_sysconfdir}/sysconfig/network/dhcp
 
 %changelog
+* Mon Aug 11 2014 Emmanuel Vadot <elbarto@bocal.org> - 2.5
+- Uses SOURCE* directly
+
 * Mon Aug 04 2014 Emmanuel Vadot <elbarto@bocal.org> - 2.4
 - Typo in network-config-generate
 
