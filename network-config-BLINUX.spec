@@ -24,7 +24,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Name:		network-config-BLINUX
-Version:        2.5
+Version:        2.5.1
 Release:        0
 License:        BSD-2-Clause
 Summary:	Network config for BLINUX
@@ -72,8 +72,6 @@ install -D -m 644 %{SOURCE6} %{buildroot}%{_sysconfdir}/sysconfig/network/
 
 %post
 /usr/sbin/network-config-generate
-/usr/bin/systemctl enable wpa_watch.service
-/usr/bin/systemctl disable wpa_supplicant.service
 
 %postun
 case "$*" in
