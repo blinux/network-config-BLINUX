@@ -24,7 +24,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Name:		network-config-BLINUX
-Version:        2.5.1
+Version:        2.5.2
 Release:        0
 License:        BSD-2-Clause
 Summary:	Network config for BLINUX
