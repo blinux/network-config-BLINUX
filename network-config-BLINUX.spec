@@ -1,5 +1,5 @@
 #-
-# Copyright 2013-2014 Emmanuel Vadot <elbarto@bocal.org>
+# Copyright 2013-2015 Emmanuel Vadot <elbarto@bocal.org>
 # All rights reserved
 #
 # Redistribution and use in source and binary forms, with or without
@@ -24,7 +24,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Name:		network-config-BLINUX
-Version:        2.5.2
+Version:        3.0
 Release:        0
 License:        BSD-2-Clause
 Summary:	Network config for BLINUX
@@ -94,6 +94,9 @@ case "$*" in
 %config(noreplace) %{_sysconfdir}/sysconfig/network/dhcp
 
 %changelog
+* Mon Oct 05 2015 Emmanuel Vadot <elbarto@bocal.org> - 3.0
+- Use wicked
+
 * Mon Aug 11 2014 Emmanuel Vadot <elbarto@bocal.org> - 2.5
 - Uses SOURCE* directly
 
