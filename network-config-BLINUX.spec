@@ -70,9 +70,6 @@ install -D -m 644 %{SOURCE4} %{buildroot}/usr/lib/systemd/system/wpa_supp.servic
 install -D -m 644 %{SOURCE5} %{buildroot}/%{_sysconfdir}/wpa_supplicant/wpa_supplicant.conf.tpl
 install -D -m 644 %{SOURCE6} %{buildroot}%{_sysconfdir}/sysconfig/network/
 
-%post
-/usr/sbin/network-config-generate
-
 %postun
 case "$*" in
   0)  

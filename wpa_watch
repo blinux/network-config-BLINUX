@@ -27,7 +27,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 wpa_reset() {
-    cp /etc/wpa_supplicant/wpa_supplicant.conf.tpl /etc/wpa_supplicant/wpa_supplicant.conf
+    network-config-generate
     systemctl disable wpa_supplicant
     systemctl stop wpa_supplicant
     systemctl restart wpa_supp.service
